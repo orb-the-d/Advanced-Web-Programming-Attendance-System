@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Web Programming - Student Attendance System</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar (Exercise 3 - Tutorial 1) -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="#" class="brand">Student Attendance System</a></li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#attendance">Attendance List</a></li>
+            <li><a href="#add-student">Add Student</a></li>
+            <li><a href="#reports">Reports</a></li>
+            <li><a href="#logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Add Student Form (Exercise 2 - Tutorial 1 & Exercise 2 - Tutorial 2) -->
+        <section class="form-section" id="add-student">
+            <h2>Add New Student</h2>
+            <form id="studentForm">
+                <div class="form-group">
+                    <label for="studentId">Student ID</label>
+                    <input type="text" id="studentId" name="studentId">
+                    <div class="error-message" id="errorStudentId">Student ID must contain only numbers</div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName">
+                    <div class="error-message" id="errorLastName">Last Name must contain only letters</div>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName">
+                    <div class="error-message" id="errorFirstName">First Name must contain only letters</div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email">
+                    <div class="error-message" id="errorEmail">Please enter a valid email (e.g., name@example.com)</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <div class="success-message" id="successMessage">Student added successfully!</div>
+        </section>
+
+        <!-- Search and Controls (Exercise 7 - Tutorial 2 V2) -->
+        <section class="controls" id="attendance">
+            <h2>Search & Filter</h2>
+            <input type="text" id="searchInput" placeholder="Search by name...">
+            <div class="button-group">
+                <button class="btn btn-primary" id="sortByAbsences">Sort by Absences (Ascending)</button>
+                <button class="btn btn-primary" id="sortByParticipation">Sort by Participation (Descending)</button>
+                <button class="btn btn-success" id="highlightExcellent">Highlight Excellent Students</button>
+                <button class="btn btn-secondary" id="resetColors">Reset Colors</button>
+                <button class="btn btn-warning" id="showReport">Show Report</button>
+            </div>
+            <div class="sort-indicator" id="sortIndicator">No sorting applied</div>
+        </section>
+
+        <!-- Attendance Table (Exercise 1 - Tutorial 1 & Exercise 1 - Tutorial 2) -->
+        <section class="table-section">
+            <h2>Attendance List</h2>
+            <table id="attendanceTable">
+                <thead>
+                    <tr>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>S1<br>P</th>
+                        <th>S1<br>Pa</th>
+                        <th>S2<br>P</th>
+                        <th>S2<br>Pa</th>
+                        <th>S3<br>P</th>
+                        <th>S3<br>Pa</th>
+                        <th>S4<br>P</th>
+                        <th>S4<br>Pa</th>
+                        <th>S5<br>P</th>
+                        <th>S5<br>Pa</th>
+                        <th>S6<br>P</th>
+                        <th>S6<br>Pa</th>
+                        <th>Absences</th>
+                        <th>Participation</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody id="attendanceBody">
+                    <tr data-lastname="Ahmed" data-firstname="Sara">
+                        <td>Ahmed</td>
+                        <td>Sara</td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square"></div></td>
+                        <td class="absences">5</td>
+                        <td class="participation">1</td>
+                        <td class="message"></td>
+                    </tr>
+                    <tr data-lastname="Yacine" data-firstname="Ali">
+                        <td>Yacine</td>
+                        <td>Ali</td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square"></div></td>
+                        <td class="absences">1</td>
+                        <td class="participation">4</td>
+                        <td class="message"></td>
+                    </tr>
+                    <tr data-lastname="Houcine" data-firstname="Rania">
+                        <td>Houcine</td>
+                        <td>Rania</td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square"></div></td>
+                        <td class="absences">4</td>
+                        <td class="participation">2</td>
+                        <td class="message"></td>
+                    </tr>
+                    <tr data-lastname="Benali" data-firstname="Karim">
+                        <td>Benali</td>
+                        <td>Karim</td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square"></div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell presence-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="attendance-cell participation-cell"><div class="checkbox-square checked">✓</div></td>
+                        <td class="absences">0</td>
+                        <td class="participation">5</td>
+                        <td class="message"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Report Section (Exercise 4 - Tutorial 2) -->
+        <section class="report-section" id="reportSection">
+            <h2>Attendance Report</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalStudents">0</div>
+                    <div class="stat-label">Total Students</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalPresent">0</div>
+                    <div class="stat-label">Students Present</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalParticipated">0</div>
+                    <div class="stat-label">Students Participated</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
